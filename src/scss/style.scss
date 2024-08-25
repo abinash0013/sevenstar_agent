@@ -1,0 +1,99 @@
+// If you want to override variables do it here
+@import "variables";
+
+$enable-ltr: true;
+$enable-rtl: true;
+
+// Import CoreUI for React components library
+@import "@coreui/coreui/scss/coreui";
+
+// Import Chart.js custom tooltips styles
+@import "@coreui/chartjs/scss/coreui-chartjs";
+
+@import "layout";
+@import "example";
+
+// If you want to add custom CSS you can put it here.
+@import "custom";
+
+//::::::::::::::::::::::::::::::::: ticket style
+.ticket-container {
+    flex: 1;
+    display: 'flex';
+    flex-direction: 'row';
+    justify-content: 'space-between';
+  }
+  .ticket-inner-container {
+    text-align: 'center';
+    font-weight: 'bold';
+  }
+  .wallent-agent {
+    border: 1px solid #ccc;
+    padding: 20px 15px;
+    background-color: #fff;
+  }
+  .wallet-amount {
+    border: 1px solid #ccc;
+    padding: 15px 20px;
+    display: block;
+  }
+  .send-money {
+    border-top: 1px solid #ccc;
+    margin-top: 30px;
+    margin-left: 0px;
+    padding-top: 10px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+  }
+  .modal-body label.form-label {
+    width: 100%;
+  }
+  
+  .modal-body input#amount {
+    float: left;
+  }
+  .send-money button {
+    margin: 15px 0;
+    width: 100px;
+  }
+  .transection{
+    // background-color: red;
+    // margin-left: 10px;
+  }
+  .button-style{
+    margin: 10px;
+  }
+  .accept-button-style{
+    margin: 15px 5px;
+  }
+  .trans-inner {
+    border: 1px solid #ccc;
+    margin: 10px;
+    // margin-left: 15px;
+    padding: 5px 10px;
+  }
+  .pending-status-container{    
+    background: #9da5b1;
+    width: fit-content;
+    padding: 5px 10px;
+    border-radius: 3px; 
+  }
+  .success-status-container{ 
+    width: fit-content;
+    padding: 5px 10px;
+    border-radius: 3px; 
+    background: #198754;
+  }
+  
+  @media (max-width: 767px) {
+    .send-money button {
+      margin-left: 0px;
+      width: 100px;
+      margin-top: 15px;
+    }
+    .modal-title{ 
+      font-size: 16px;
+    }
+  }
+  

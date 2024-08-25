@@ -1,0 +1,18 @@
+.bookTicketNumberContainer {}
+
+.bookTicketNumberBox {
+  background-color: "red";
+}
+
+.bookTicketNumber {
+  list-style-type: none;
+}
+
+.customerBoxContainer {
+  display: "flex";
+  flex-Wrap: "wrap"
+}
+
+.customBox {
+  margin: 5px
+}
