@@ -1,7 +1,6 @@
 // const mainUrl = `http://localhost:8000/`  
 
 const mainUrl = process.env.REACT_APP_API_URL;
-// console.log('API URL:', mainUrl);
 
 const base = {
   adminLogin: `${mainUrl}/adminLogin`,
