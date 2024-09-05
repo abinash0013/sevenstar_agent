@@ -33,33 +33,69 @@ const Login = () => {
     })
   }
 
+  // const submitLogin = async () => {
+  //   if (userName.target.value == 0) {
+  //     toast.error("username is mandatory")
+  //   } else if (password.target.value == 0) {
+  //     toast.error("password is mandatory")
+  //   } else {
+  //     let req = {
+  //       username: userName.target.value,
+  //       password: password.target.value,
+  //     }
+  //     // console.log("resultresultreq", req)
+  //     let result = await postApiCall(base.agentLogin, req)
+  //     console.log("resultresult", result)
+  //     if (result.status == true) {  
+  //       if (result.data[0].agents_active_status == "Active") {
+  //         successToast()          
+  //         localStorage.setItem('adminLoginId', result.data[0].agents_id); // No need for await
+  //         console.log("agents_idset:", result.data[0].agents_id); // Log the value you set 
+  //         navigate("/dashboard")
+  //       } else {
+  //         toast.error(result.data[0].agents_status_remarks)
+  //       }
+  //     } else {
+  //       toast.error(result.message)
+  //     }
+  //   }
+  // }
+
   const submitLogin = async () => {
-    if (userName.target.value == 0) {
-      toast.error("username is mandatory")
-    } else if (password.target.value == 0) {
-      toast.error("password is mandatory")
+    if (userName.target.value === "") {
+      toast.error("Username is mandatory");
+    } else if (password.target.value === "") {
+      toast.error("Password is mandatory");
     } else {
       let req = {
         username: userName.target.value,
         password: password.target.value,
-      }
-      // console.log("resultresultreq", req)
-      let result = await postApiCall(base.agentLogin, req)
-      // console.log("resultresult", result)
-      if (result.status == true) {
-        // console.log("test")
-        if (result.data[0].agents_active_status == "Active") {
-          successToast()
-          await localStorage.setItem("agentLoginId", result.data[0].agents_id)
-          navigate("/dashboard")
+      };
+  
+      try {
+        let result = await postApiCall(base.agentLogin, req);
+        console.log("API result:", result);
+  
+        if (result.status === true) {
+          console.log("Login successful");
+          if (result.data[0].agents_active_status === "Active") {
+            successToast();          
+            localStorage.setItem('agentLoginId', result.data[0].agents_id);
+            console.log("Agent ID set:", result.data[0].agents_id);  
+            // Make sure navigate is working correctly
+            navigate("/dashboard");
+          } else {
+            toast.error(result.data[0].agents_status_remarks);
+          }
         } else {
-          toast.error(result.data[0].agents_status_remarks)
+          toast.error(result.message);
         }
-      } else {
-        toast.error(result.message)
+      } catch (error) {
+        console.error("Error during login:", error);
+        toast.error("An unexpected error occurred.");
       }
     }
-  }
+  };
 
   return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">

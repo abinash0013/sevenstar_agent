@@ -66,28 +66,20 @@ const Dashboard = () => {
   const [agentOwnGender, setAgentOwnGender] = useState("")
 
   useEffect(() => {
-    // const sessionData = async () => {
-    //   const loggedInUser = await localStorage.getItem("adminLoginId");
-    //   console.log("loggedInUserr", loggedInUser);
-    //   setLoginId(loggedInUser);
-    //   if (loggedInUser == null || loggedInUser == "") {
-    //     navigate("/login");
-    //   } else {
-    //   }
-    // }
-    // sessionData()
     agentsOwnDetails()
     agentsList()
   }, [])
 
   const agentsOwnDetails = async () => {
-    // const loggedInUser = await localStorage.getItem("adminLoginId");
+    const loggedInUser = localStorage.getItem("agentLoginId");
+    console.log("loggedInUserLogg", loggedInUser);
+    
     let req = {
-      // agentId: loggedInUser
-      agentId: "22",
+      agentId: loggedInUser 
     }
     console.log("agentsOwnDetailsresulttttreq", req)
     let result = await postApiCall(base.agentsOwnDetails, req)
+    console.log("agentsOwnDetailsresulttttstatusresult", result)
     console.log("agentsOwnDetailsresulttttstatus", result.data[0].agents_id)
     // if (result.data[0].agents_id == req) {
     if (result.status == true) {
@@ -101,7 +93,11 @@ const Dashboard = () => {
 
   const agentsList = async () => {
     let result = await getApiCall(base.agentsList)
-    setAgentList(result)
+    console.log("resultLoggg", result);  
+    if(result.length > 0){
+      const sortedResult = result.sort((a, b) => (b.wallet || 0) - (a.wallet || 0));
+      setAgentList(sortedResult)
+    }
   }
 
   // const random = (min, max) => Math.floor(Math.random() * (max - min + 1) + min)
@@ -212,6 +208,8 @@ const Dashboard = () => {
 
   const _render_agent_list = (data) => {
     return data?.map((item, index) => {
+      console.log("itemLog", item);
+      
       return (
         <CTableRow v-for="item in tableItems" key={index}>
           <CTableDataCell>
@@ -221,7 +219,7 @@ const Dashboard = () => {
             <div className="text-center">{item.agents_gender}</div>
           </CTableDataCell>
           <CTableDataCell>
-            <div className="text-center">{item.agents_phone}</div>
+            <div className="text-center">{item.wallet == null ? "0" : item.wallet}</div> 
           </CTableDataCell>
         </CTableRow>
       )
@@ -338,7 +336,7 @@ const Dashboard = () => {
                 </CTableHeaderCell> */}
                   <CTableHeaderCell className="text-center">Agent Name</CTableHeaderCell>
                   <CTableHeaderCell className="text-center">Gender</CTableHeaderCell>
-                  <CTableHeaderCell className="text-center">Ticket Sold</CTableHeaderCell>
+                  <CTableHeaderCell className="text-center">Ticket Sold Amount</CTableHeaderCell>
                 </CTableRow>
               </CTableHead>
               <CTableBody>{_render_agent_list(agentList || [])}</CTableBody>

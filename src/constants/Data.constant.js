@@ -1,4 +1,4 @@
-// const mainUrl = `http://localhost:8000/`  
+// const mainUrl = `http://localhost:8000`  
 
 const mainUrl = process.env.REACT_APP_API_URL;
 
@@ -8,6 +8,7 @@ const base = {
   saveAgent: `${mainUrl}/saveAgent`,
   agentsList: `${mainUrl}/agentsList`,
   agentsOwnDetails: `${mainUrl}/agentsOwnDetails`,
+  agentsFilteredDetails: `${mainUrl}/agentsFilteredDetails`,  
   editAgent: `${mainUrl}/editAgent`,
   deleteAgent: `${mainUrl}/deleteAgent`,
   saveUser: `${mainUrl}/saveUser`,
