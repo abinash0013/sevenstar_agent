@@ -28,6 +28,7 @@ import { base } from "src/constants/Data.constant"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { useParams } from "react-router-dom"
+import moment from "moment"
 
 const Ticket = () => {
   const [deleteModalVisible, setDeleteModalVisible] = useState(false)
@@ -154,7 +155,7 @@ const Ticket = () => {
                       <CTableDataCell>{item.ticketUniquieId}</CTableDataCell>
                       <CTableDataCell>{item.userName}</CTableDataCell>
                       <CTableDataCell>{item.userPhone}</CTableDataCell>
-                      <CTableDataCell>{item.bookingDateAndTime}</CTableDataCell>
+                      <CTableDataCell>{moment(item.bookingDateAndTime).format("YYYY-MM-DD HH:mm:ss")}</CTableDataCell>
                       {/* <CTableDataCell>
                       <CButton color="warning" className='me-2' onClick={() => { get_edit_value(item) }}>Edit</CButton>
                       <CModal alignment="center" visible={editModalVisible}>
