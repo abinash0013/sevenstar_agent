@@ -117,6 +117,7 @@ const BookTicket = () => {
         }
       })
       const agentId = localStorage.getItem("agentLoginId")
+      console.log("agentIdLog", agentId);      
       let req = {
         agentId: agentId,
         gameId: id,
@@ -124,10 +125,10 @@ const BookTicket = () => {
         userPhone: userPhone.target.value,
         selectedIdsForTicketBooking: JSON.stringify(selectedTicket),
       }
-      // console.log("selectedIdsForTicketBookinggg", req)
+      console.log("selectedIdsForTicketBookinggg", req)
       // let result = await putApiCall(base.bookTicketByAgents, req)
       let result = await postApiCall(base.bookTicketByAgents, req)
-      // console.log("resultresulteerrrageagentId", typeof result.status)
+      console.log("resultresulteerrrageagentId", typeof result.status)
       // if (result.status == true) {
       //   setUserName("")
       //   setUserPhone("")
