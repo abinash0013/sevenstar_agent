@@ -7,8 +7,7 @@ import {
   CFormInput,
   CFormLabel,
   CModalBody,
-  CModalTitle,
-  CFormSelect,
+  CModalTitle, 
 } from "@coreui/react"
 // import { useParams } from "react-router-dom"
 import { base } from "src/constants/Data.constant"
@@ -36,14 +35,13 @@ const AgentTransaction = () => {
     const agentId = localStorage.getItem("agentLoginId")
     try {
       let body = {
-        agent_id: agentId,
+        agentId: agentId,
       }
-      // console.log("resulttteebody", body)
       let result = await postApiCall(base.agentDetails, body)
-      // console.log("resultttee", result)
-      // console.log("resulttteewallet", result.data[0].wallet)
-      // setTransactionAmount('')
-      setAgentsDetails(result.data[0])
+      if(result){
+        setTransactionAmount('')
+        setAgentsDetails(result.data[0])
+      }
     } catch (e) {}
   }
 
@@ -54,11 +52,14 @@ const AgentTransaction = () => {
         agentId: agentId,
       }
       let result = await postApiCall(base.agentCreditDebitTransacationList, body)
-      // console.log("agentTransacationListresulttttt", result)
-      const filtered = result.data.filter(
-        (item) => item.type_cr_dr === "Credit" || item.type_cr_dr === "Debit",
-      )
-      setAgentsTransaction(filtered)
+      if(result?.data.length > 0) {
+        const filtered = result.data.filter(
+          (item) => item.type_cr_dr === "Credit" || item.type_cr_dr === "Debit",
+        )
+        setAgentsTransaction(filtered)
+      } else {
+        toast.error("No Data Found.!!!")
+      }
     } catch (e) {}
   }
 
@@ -91,52 +92,7 @@ const AgentTransaction = () => {
     } else {
       toast.error("Sorry..Unable to send request.")
     }
-  }
-
-  // const agent_paid_amount = async () => {
-  //   let amount = Number(agentsDetails.wallet) - Number(transactionAmount.target.value)
-  //   let body = {
-  //     agent_id: id,
-  //     amount: amount,
-  //   }
-  //   let result = await postApiCall(base.agentPaidAmount, body)
-  //   if (result.status == true) {
-  //     agents_details()
-  //   } else {
-  //     alert("err")
-  //   }
-  // }
-
-  // const wallet_action = async () => {
-  //   console.log(
-  //     "wallet_action_log_",
-  //     transactionAmount.target.value.length,
-  //     transactionRemarks.target.value.length,
-  //   )
-  //   // if (transactionAmount.target.value.length == 0) {
-  //   //   console.log('Transaction Amount is Mandatory')
-  //   // } else if (transactionRemarks.target.value.length == 0) {
-  //   //   console.log('Transaction Remarks is Mandatory')
-  //   //   // } else if (transactionType == '') {
-  //   //   //   console.log('Transaction Type is Mandatory')
-  //   // } else {
-  //   let req = {
-  //     agentId: id,
-  //     transactionType: transactionType,
-  //     remarks: transactionRemarks.target.value,
-  //     amount: transactionAmount.target.value,
-  //   }
-  //   console.log("walletactionreqlog", req)
-  //   let result = await postApiCall(base.walletAction, req)
-  //   console.log("walletactionresultlog", result)
-  //   if (result.status == true) {
-  //     clearFormInput()
-  //     agents_details()
-  //     console.log("Record Saved Successfully.!!")
-  //     // alert('Record Saved Successfully.!!')
-  //   }
-  //   // }
-  // }
+  } 
 
   const clearFormInput = async () => {
     setTransactionType("")
@@ -189,8 +145,7 @@ const AgentTransaction = () => {
           </CCol>
         </CRow>
         <CModalTitle>Wallet Transaction</CModalTitle>
-        {agentsTransaction?.map((item, index) => {
-          // console.log("itemmm", item)
+        {agentsTransaction?.map((item, index) => { 
           return (
             <CRow className="transection" key={index}>
               <CRow className="trans-inner">

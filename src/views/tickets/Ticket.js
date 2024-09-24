@@ -54,19 +54,20 @@ const Ticket = () => {
   console.log("gameAmountIdVarrrr", gameAmountIdVar)
 
   const ticket_list = async () => {
-    // let result = await getApiCall(base.ticketList)
     let req = {
       gameId: gameIdVar,
     }
-    // console.log("resultticketlistreq", req);
+    console.log("resultticketlistreq", req);
     let result = await postApiCall(base.ticketList, req)
-    // console.log("resultticketlistresult", result)
+    console.log("resultticketlistresult", result)
     let datamerge = JSON.parse(result.data[0].ticket_set)
-    // console.log("datamergeeeerrr", datamerge)
+
+    console.log("datamergeeeerrr", datamerge)
     if (datamerge != null) {
       if (datamerge.length > 0) {
-        let filterDataMerge = datamerge.filter((item) => item.agentId == "2")
-        // console.log("filterDataMerge", filterDataMerge);
+        const loggedInUser = localStorage.getItem("agentLoginId");
+        let filterDataMerge = datamerge.filter((item) => item.agentId == loggedInUser)
+        console.log("filterDataMerge", filterDataMerge);
         setTicketData(filterDataMerge)
       } else {
         alert("no data found")
